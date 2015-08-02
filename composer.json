@@ -12,7 +12,7 @@
     ],
     "require": {
         "yiisoft/yii2": "*",
-        "bower-asset/formbuilder": "0.2.*"
+        "bower-asset/jquery.formbuilder": "2.0.*"
     },
     "autoload": {
         "psr-4": {
