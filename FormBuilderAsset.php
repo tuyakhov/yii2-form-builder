@@ -13,11 +13,12 @@ class FormBuilderAsset extends AssetBundle
     public $sourcePath = '@bower/jquery.formbuilder/dist';
 
     public $js = [
+        'js/libs.min.js',
         'js/formbuilder.min.js'
     ];
 
     public $css = [
-        'css/formbuilder.css'
+        'css/formbuilder.css',
     ];
 
     public $depends = [

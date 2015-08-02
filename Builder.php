@@ -9,32 +9,34 @@ namespace tuyakhov\formbuilder;
 use yii\base\Model;
 use yii\base\Widget;
 use yii\helpers\Html;
+use yii\helpers\Json;
+use yii\web\JsExpression;
 use yii\widgets\ActiveForm;
 
 class Builder extends  Widget
 {
-    /**
-     * @var $form ActiveForm
-     */
-    public $form;
 
-    public function renderFieldForm($type, $config)
-    {
-        $fieldModel = \Yii::createObject($type, $config);
-        if (isset($fieldModel) && $fieldModel instanceof Model) {
-            foreach ($fieldModel->attributes() as $attribute) {
-                $this->form->field($fieldModel, $attribute);
-            }
-        } else {
-            return '';
-        }
-    }
+    public $containerSelector;
 
-    public function renderAddFieldButton($options)
+    public $startingModel;
+
+    public $saveCallback;
+
+    public $templateBasePath;
+
+    public function run()
     {
-        if (empty($options['id'])) {
-            $options['id'] = 'add-form-field';
+        $jsonModel = Json::encode($this->startingModel);
+        if ($this->templateBasePath === null) {
+            $this->templateBasePath = \Yii::$app->assetManager->getPublishedUrl('@bower/jquery.formbuilder/dist') . '/templates/builder';
         }
-        return Html::a('Add field', '#', $options);
+        $view = $this->getView();
+        FormBuilderAsset::register($view);
+        $view->registerJs("var myForm = new Formbuilder({
+            templateBasePath: '{$this->templateBasePath}',
+            targets: $('{$this->containerSelector}'),
+            save: " . new JsExpression($this->saveCallback) . ",
+            startingModel: '{$jsonModel}'
+        });");
     }
 }
