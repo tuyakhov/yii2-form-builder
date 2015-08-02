@@ -12,7 +12,7 @@
     ],
     "require": {
         "yiisoft/yii2": "*",
-        "bower-asset/jquery.formbuilder": "2.0.*@beta",
+        "bower-asset/jquery.formbuilder": "dev-master",
         "bower-asset/html5sortable": "dev-master"
     },
     "autoload": {
