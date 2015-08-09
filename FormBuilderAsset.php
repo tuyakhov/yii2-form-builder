@@ -13,7 +13,6 @@ class FormBuilderAsset extends AssetBundle
     public $sourcePath = '@bower/jquery.formbuilder/dist';
 
     public $js = [
-        'js/libs.min.js',
         'js/formbuilder.min.js'
     ];
 
@@ -22,6 +21,8 @@ class FormBuilderAsset extends AssetBundle
     ];
 
     public $depends = [
-        '\yii\web\JqueryAsset'
+        'yii\web\JqueryAsset',
+        'tuyakhov\formbuilder\DustAsset',
+        'tuyakhov\formbuilder\Html5SortableAsset'
     ];
 }
