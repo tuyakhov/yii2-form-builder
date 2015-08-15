@@ -26,7 +26,7 @@ class Builder extends  Widget
 
     public function run()
     {
-        $jsonModel = Json::encode($this->startingModel);
+        $jsonModel = Json::encode(empty($this->startingModel) ? '{}' : $this->startingModel);
         if ($this->templateBasePath === null) {
             $this->templateBasePath = \Yii::$app->assetManager->getPublishedUrl('@bower/jquery.formbuilder/dist') . '/templates/builder';
         }
@@ -36,7 +36,7 @@ class Builder extends  Widget
             templateBasePath: '{$this->templateBasePath}',
             targets: $('{$this->containerSelector}'),
             save: " . new JsExpression($this->saveCallback) . ",
-            startingModel: '{$jsonModel}'
+            startingModel: {$jsonModel}
         });");
     }
 }
