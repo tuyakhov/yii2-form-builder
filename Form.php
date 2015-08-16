@@ -6,6 +6,7 @@ use yii\base\InvalidConfigException;
 use yii\base\Model;
 use yii\base\Widget;
 use yii\helpers\ArrayHelper;
+use yii\helpers\Json;
 use yii\widgets\ActiveForm;
 
 /**
@@ -13,6 +14,13 @@ use yii\widgets\ActiveForm;
  */
 class Form extends Widget
 {
+    const TYPE_CHECKBOX = 'checkbox';
+    const TYPE_RADIO = 'radio';
+
+    public static $listTypes = [
+        self::TYPE_CHECKBOX,
+        self::TYPE_RADIO
+    ];
     /**
      * @var $form ActiveForm
      */
@@ -50,9 +58,17 @@ class Form extends Widget
     {
         foreach ($this->fields as $attributeName => $field) {
             $fieldType = ArrayHelper::getValue($field, 'type', null);
-            $formField = $this->form->field($this->model, $attributeName, ArrayHelper::getValue($field, 'options', []));
+            $items = null;
+            if (in_array($fieldType, self::$listTypes)) {
+                $fieldType .= 'List';
+                $items = isset($field->choices) ? Json::decode($field->choices) : [];
+                $items = ArrayHelper::getColumn($items, 'label');
+            }
+            $options = isset($field->options) ? $field->options : [];
+            $options['labelOptions']['label'] = $field->label;
+            $formField = $this->form->field($this->model, "values[{$attributeName}]", $options);
             if (method_exists($formField, $fieldType)) {
-                echo $formField->$fieldType;
+                echo $formField->$fieldType($items);
             } elseif (class_exists($fieldType)) {
                 echo $formField->widget($fieldType, ArrayHelper::getValue($field, 'config', []));
             }
