@@ -58,7 +58,7 @@ class Form extends Widget
     {
         foreach ($this->fields as $attributeName => $field) {
             $fieldType = ArrayHelper::getValue($field, 'type', null);
-            $items = null;
+            $items = [];
             if (in_array($fieldType, self::$listTypes)) {
                 $fieldType .= 'List';
                 $items = isset($field->choices) ? Json::decode($field->choices) : [];
@@ -66,7 +66,7 @@ class Form extends Widget
             }
             $options = isset($field->options) ? $field->options : [];
             $options['labelOptions']['label'] = $field->label;
-            $formField = $this->form->field($this->model, "values[{$attributeName}]", $options);
+            $formField = $this->form->field($this->model, "values[{$attributeName}][value]", $options);
             if (method_exists($formField, $fieldType)) {
                 echo $formField->$fieldType($items);
             } elseif (class_exists($fieldType)) {
