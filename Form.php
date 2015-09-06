@@ -64,7 +64,7 @@ class Form extends Widget
                 $items = isset($field->choices) ? Json::decode($field->choices) : [];
                 $items = ArrayHelper::getColumn($items, 'label');
             }
-            $options = isset($field->options) ? $field->options : [];
+            $options = isset($field->options) ? Json::decode($field->options) : [];
             $options['labelOptions']['label'] = $field->label;
             $formField = $this->form->field($this->model, "values[{$attributeName}][value]", $options);
             if (method_exists($formField, $fieldType)) {
