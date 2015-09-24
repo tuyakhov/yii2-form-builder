@@ -32,7 +32,7 @@ class Builder extends  Widget
         }
         $view = $this->getView();
         FormBuilderAsset::register($view);
-        $view->registerJs("var myForm = new Formbuilder({
+        $view->registerJs("var myForm = new formbuilder({
             templateBasePath: '{$this->templateBasePath}',
             targets: $('{$this->containerSelector}'),
             save: " . new JsExpression($this->saveCallback) . ",
