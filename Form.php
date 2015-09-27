@@ -70,7 +70,7 @@ class Form extends Widget
             if (method_exists($formField, $fieldType)) {
                 echo $formField->$fieldType($items);
             } elseif (class_exists($fieldType)) {
-                echo $formField->widget($fieldType, ArrayHelper::getValue($field, 'config', []));
+                echo $formField->widget($fieldType, isset($field->config) ? Json::decode($field->config) : []);
             }
         }
     }
