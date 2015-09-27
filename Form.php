@@ -16,10 +16,16 @@ class Form extends Widget
 {
     const TYPE_CHECKBOX = 'checkbox';
     const TYPE_RADIO = 'radio';
+    const TYPE_SELECT = 'select';
+    const TYPE_TEXTAREA = 'textarea';
+    const TYPE_TEXT = 'text';
 
     public static $listTypes = [
-        self::TYPE_CHECKBOX,
-        self::TYPE_RADIO
+        self::TYPE_CHECKBOX => 'checkboxList',
+        self::TYPE_RADIO => 'radioList',
+        self::TYPE_SELECT => 'dropDownList',
+        self::TYPE_TEXTAREA => 'textarea',
+        self::TYPE_TEXT => 'textInput',
     ];
     /**
      * @var $form ActiveForm
@@ -59,10 +65,11 @@ class Form extends Widget
         foreach ($this->fields as $attributeName => $field) {
             $fieldType = ArrayHelper::getValue($field, 'type', null);
             $items = [];
-            if (in_array($fieldType, self::$listTypes)) {
-                $fieldType .= 'List';
-                $items = isset($field->choices) ? Json::decode($field->choices) : [];
-                $items = ArrayHelper::getColumn($items, 'label');
+            if (array_key_exists($fieldType, self::$listTypes)) {
+                $fieldType = self::$listTypes[$fieldType];
+                if (isset($field->choices)) {
+                    $items = ArrayHelper::getColumn(Json::decode($field->choices), 'label');
+                }
             }
             $options = isset($field->options) ? Json::decode($field->options) : [];
             $options['labelOptions']['label'] = $field->label;
