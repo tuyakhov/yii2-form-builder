@@ -2,6 +2,7 @@
 
 namespace tuyakhov\formbuilder;
 
+use tuyakhov\materialize\DatePicker;
 use yii\base\InvalidConfigException;
 use yii\base\Model;
 use yii\base\Widget;
@@ -19,6 +20,7 @@ class Form extends Widget
     const TYPE_SELECT = 'select';
     const TYPE_TEXTAREA = 'textarea';
     const TYPE_TEXT = 'text';
+    const TYPE_DATEPICKER = 'datepicker';
 
     public static $listTypes = [
         self::TYPE_CHECKBOX => 'checkboxList',
@@ -26,6 +28,7 @@ class Form extends Widget
         self::TYPE_SELECT => 'dropDownList',
         self::TYPE_TEXTAREA => 'textarea',
         self::TYPE_TEXT => 'textInput',
+        self::TYPE_DATEPICKER => 'tuyakhov\materialize\DatePicker',
     ];
     /**
      * @var $form ActiveForm
