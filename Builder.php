@@ -36,7 +36,82 @@ class Builder extends  Widget
             templateBasePath: '{$this->templateBasePath}',
             targets: $('{$this->containerSelector}'),
             save: " . new JsExpression($this->saveCallback) . ",
-            startingModel: {$jsonModel}
+            startingModel: {$jsonModel},
+            field_types: [
+                {
+                  key: 'text',
+                  label: 'Text',
+                  schema: {
+                    name: false,
+                    fbid: false,
+                    label: '',
+                    required: false
+                  }
+                },{
+                  key: 'datepicker',
+                  label: 'Datepicker',
+                  schema: {
+                    name: false,
+                    fbid: false,
+                    label: '',
+                    required: false
+                  }
+                },{
+                  key: 'textarea',
+                  label: 'Textarea',
+                  schema: {
+                    name: false,
+                    fbid: false,
+                    label: '',
+                    required: false
+                  }
+                },{
+                  key: 'select',
+                  label: 'Select',
+                  template: 'choices',
+                  schema: {
+                    name: false,
+                    fbid: false,
+                    label: '',
+                    required: false,
+                    choices: []
+                  },
+                  choiceSchema: {
+                    selected: false,
+                    label: ''
+                  }
+                },{
+                  key: 'radio',
+                  label: 'Radio',
+                  template: 'choices',
+                  schema: {
+                    name: false,
+                    fbid: false,
+                    label: '',
+                    required: false,
+                    choices: []
+                  },
+                  choiceSchema: {
+                    selected: false,
+                    label: ''
+                  }
+                },{
+                  key: 'checkbox',
+                  label: 'Checkbox',
+                  template: 'choices',
+                  schema: {
+                    name: false,
+                    fbid: false,
+                    label: '',
+                    required: false,
+                    choices: []
+                  },
+                  choiceSchema: {
+                    selected: false,
+                    label: ''
+                  }
+                }
+            ]
         });
         myForm.setModelValue = function( id, type, val ){
 
