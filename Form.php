@@ -78,6 +78,8 @@ class Form extends Widget
                 echo $formField->$fieldType($items);
             } elseif (class_exists($fieldType)) {
                 echo $formField->widget($fieldType, isset($field->config) ? Json::decode($field->config) : []);
+            } else {
+                echo $formField->textInput($options);
             }
         }
     }
